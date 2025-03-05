@@ -24,7 +24,7 @@ terraform apply
 terraform destroy
 構成
 このリポジトリは以下の構造になっています：
-
+```
 ├── README.md
 ├── main.tf              # メインの構成
 ├── variables.tf         # 変数定義
@@ -41,6 +41,7 @@ terraform destroy
 └── environments/        # 環境固有の設定
     ├── dev/             # 開発環境
     └── prod/            # 本番環境
+```
 変数
 主な変数は以下の通りです：
 

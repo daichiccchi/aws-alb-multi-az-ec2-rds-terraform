@@ -17,31 +17,31 @@ variable "project_name" {
 }
 
 variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
+  description = "VPC用のCIDRブロック"
   type        = string
   default     = "10.0.0.0/16"
 }
 
 variable "availability_zones" {
-  description = "List of availability zones to use"
+  description = "使用するアベイラビリティゾーンのリスト"
   type        = list(string)
   default     = ["ap-northeast-1a", "ap-northeast-1c"]
 }
 
 variable "public_subnets" {
-  description = "CIDR blocks for public subnets"
+  description = "パブリックサブネット用のCIDRブロック"
   type        = list(string)
   default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
 variable "private_subnets" {
-  description = "CIDR blocks for private subnets"
+  description = "プライベートサブネット（アプリケーション用）のCIDRブロック"
   type        = list(string)
   default     = ["10.0.11.0/24", "10.0.12.0/24"]
 }
 
 variable "database_subnets" {
-  description = "CIDR blocks for database subnets"
+  description = "データベース用サブネットのCIDRブロック"
   type        = list(string)
   default     = ["10.0.21.0/24", "10.0.22.0/24"]
 }
