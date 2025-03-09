@@ -8,10 +8,6 @@ output "private_ips" {
   value       = aws_instance.app[*].private_ip
 }
 
-output "security_group_id" {
-  description = "EC2セキュリティグループのID"
-  value       = aws_security_group.ec2.id
-}
 
 output "target_group_arn" {
   description = "ALBターゲットグループのARN"

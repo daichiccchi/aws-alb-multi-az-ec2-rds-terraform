@@ -3,9 +3,9 @@ output "alb_sg_id" {
   value       = aws_security_group.alb.id
 }
 
-output "app_sg_id" {
+output "ec2_sg_id" {
   description = "アプリケーション（EC2）セキュリティグループのID"
-  value       = aws_security_group.app.id
+  value       = aws_security_group.ec2.id
 }
 
 output "db_sg_id" {

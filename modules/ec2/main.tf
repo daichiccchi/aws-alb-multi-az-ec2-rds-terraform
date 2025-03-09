@@ -1,34 +1,19 @@
-# EC2インスタンス用のセキュリティグループ
-resource "aws_security_group" "ec2" {
-  name        = "${var.project_name}-${var.environment}-ec2-sg"
+resource "aws_security_group" "eic_sg" {
+  name        = "eic-security-group"
   vpc_id      = var.vpc_id
 
-  # ALBからの接続を許可
-  ingress {
-    from_port       = var.app_port
-    to_port         = var.app_port
-    protocol        = "tcp"
-    security_groups = [var.alb_sg_id]
-  }
-
-  # SSHアクセス（オプション）
-  ingress {
+  egress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.ssh_allowed_cidr_blocks
+    security_groups = [var.ec2_sg_id]
   }
+}
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "${var.project_name}-${var.environment}-ec2-sg"
-  }
+resource "aws_ec2_instance_connect_endpoint" "eic" {
+  subnet_id          = var.private_subnet_ids[0]  # EICを配置するサブネット
+  security_group_ids = [aws_security_group.eic_sg.id]
+  preserve_client_ip = true
 }
 
 # EC2インスタンス用のIAMロール
@@ -83,7 +68,7 @@ resource "aws_instance" "app" {
   ami                    = data.aws_ami.amazon_linux_2.id
   instance_type          = var.instance_type
   subnet_id              = var.private_subnet_ids[count.index]
-  vpc_security_group_ids = [aws_security_group.ec2.id]
+  vpc_security_group_ids = [var.ec2_sg_id]
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
   user_data              = var.user_data
 

@@ -32,8 +32,8 @@ resource "aws_security_group" "alb" {
 }
 
 # アプリケーション（EC2）用セキュリティグループ
-resource "aws_security_group" "app" {
-  name        = "${var.project_name}-${var.environment}-app-sg"
+resource "aws_security_group" "ec2" {
+  name        = "${var.project_name}-${var.environment}-ec2-sg"
   vpc_id      = var.vpc_id
 
   # ALBからのトラフィックを許可
@@ -61,7 +61,7 @@ resource "aws_security_group" "app" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-app-sg"
+    Name = "${var.project_name}-${var.environment}- ec2-sg"
   }
 }
 
@@ -75,7 +75,7 @@ resource "aws_security_group" "db" {
     from_port       = var.db_port
     to_port         = var.db_port
     protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
+    security_groups = [aws_security_group.ec2.id]
   }
 
   # すべての出力トラフィックを許可

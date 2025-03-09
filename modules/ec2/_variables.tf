@@ -13,6 +13,11 @@ variable "alb_sg_id" {
   type        = string
 }
 
+variable "ec2_sg_id" {
+  description = "EC2セキュリティグループのID"
+  type        = string
+}
+
 variable "instance_type" {
   description = "EC2インスタンスタイプ"
   type        = string

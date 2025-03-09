@@ -35,6 +35,7 @@ module "ec2" {
   vpc_id              = module.vpc.vpc_id
   private_subnet_ids  = module.vpc.private_subnet_ids
   alb_sg_id           = module.security.alb_sg_id
+  ec2_sg_id           = module.security.ec2_sg_id
   instance_type       = var.ec2_instance_type
   project_name        = var.project_name
   environment         = var.environment
